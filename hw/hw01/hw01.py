@@ -9,9 +9,9 @@ def a_plus_abs_b(a, b):
     5
     """
     if b < 0:
-        f =sub
+        f = sub
     else:
-        f =add
+        f = add
     return f(a, b)
 
 def two_of_three(a, b, c):
@@ -27,8 +27,7 @@ def two_of_three(a, b, c):
     >>> two_of_three(5, 5, 5)
     50
     """
-
-    return (a*a+b*b+c*c)- (min(a,b,c)*min(a,b,c))
+    return a*a + b*b + c*c - (min(a, b, c) * min(a, b, c))
 
 def largest_factor(n):
     """Return the largest factor of n that is smaller than n.
@@ -41,13 +40,14 @@ def largest_factor(n):
     1
     """
     "*** YOUR CODE HERE ***"
-    factor = n - 1
-
-    while (factor >= 1):
-        if (n % factor == 0):
-            return factor
+    f = n - 1
+    while (f > 1):
+        if (n % f == 0):  # Is a factor
+            return f
         else:
-            factor = factor - 1
+            f -= 1
+    else:
+        return f
 
 def if_function(condition, true_result, false_result):
     """Return true_result if condition is a true value, and
@@ -82,16 +82,13 @@ def with_if_function():
     return if_function(c(), t(), f())
 
 def c():
-    2==2
-    print ('True')
-    return True
+    return 1
 
 def t():
-    print ('1')
     return 1
 
 def f():
-    error
+    return 5 / 0  # Intentionally crash and burn
 
 def hailstone(n):
     """Print the hailstone sequence starting at n and return its
@@ -108,14 +105,17 @@ def hailstone(n):
     >>> a
     7
     """
-    print (n)
-    count = 1
-    while n > 1:
-        if (n%2 == 0):
-            n = n // 2
-        else:
-            n = n*3+1
-        print(n)
-        count = 1 + count
-    return count
+    num_steps = 1
+    print(n)  # Print initial value
+
+    while (n > 1):
+        if (n % 2 == 0):  # 'n' is even
+            n = (n // 2)
+            print(n)
+        else:  # 'n' is odd
+            n = (n * 3) + 1
+            print(n)
+        num_steps += 1
+
+    return num_steps
 
