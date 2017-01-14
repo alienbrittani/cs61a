@@ -7,15 +7,10 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
-    r1 = a % b
-    if (r1 == 0):
-        GCD = b
-    else:
-        r2 = b % r1
-        while (r2 != 0):
-            r1, r2 = r2, r1 % r2
-        GCD = r1
-    return (a * b) // GCD
+    n = max(a, b)
+    while ((n % a != 0) or (n % b != 0)):
+        n = n + 1
+    return n
 
 def unique_digits(n):
     """Return the number of unique digits in positive integer n
@@ -34,21 +29,20 @@ def unique_digits(n):
     2
     """
     "*** YOUR CODE HERE ***"
-    count = 0
-    for k in range(0, 10):
-        if has_digit(n, k):
-            count = count + 1
-    return count
+    num_unique_digits = 0
+    for k in range(10):
+        if (has_digit(n, k)):
+            num_unique_digits = num_unique_digits + 1
+    return num_unique_digits
 
-# Returns whether any of the digits within 'n' is 'k' (true/false)
+# Returns whether any of the digits within 'n' is 'k'
 def has_digit(n, k):
-    cur_len = len(str(n))
-    while cur_len > 0:
-        units_dig = n - ((n // 10) * 10)
-        if (units_dig == k):
+    while (n >= 10):  # More than 1 digit remaining
+        all_but_ones_digit = ((n // 10) * 10)
+        ones_digit = n - all_but_ones_digit
+        if (ones_digit == k):
             return True
-        else:  # Units digit is not 'k'
+        else:
             n = n // 10
-            cur_len = cur_len - 1
-    return False
+    return (n == k)
 
