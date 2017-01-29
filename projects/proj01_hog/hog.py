@@ -46,12 +46,17 @@ def roll_dice(num_rolls, dice=six_sided):
 def free_bacon(opponent_score):
     """Return the points scored from rolling 0 dice (Free Bacon)."""
     # BEGIN PROBLEM 2
-    "*** REPLACE THIS LINE ***"
+    # score <10, first of two digits is 0
+    # should call roll_dice
+    # player who chooses to roll 0 dice score = 1 + max (x,y) digit of oppontent's total score (assume opponent_score < 100)
+    """Return the points scored from rolling 0 dice (Free Bacon)."""
+    #to separate individual digits
+    units_dig = opponent_score - ((opponent_score // 10) * 10)
+    tens_dig = (opponent_score - units_dig) // 10
+    your_score = 1 + max(tens_dig, units_dig)
+    return your_score
     # END PROBLEM 2
-
-
 # Write your prime functions here!
-
 
 def take_turn(num_rolls, opponent_score, dice=six_sided):
     """Simulate a turn rolling NUM_ROLLS dice, which may be 0 (Free Bacon).
