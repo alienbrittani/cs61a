@@ -43,7 +43,13 @@ def roll_dice(num_rolls, dice=six_sided):
 def free_bacon(opponent_score):
     """Return the points scored from rolling 0 dice (Free Bacon)."""
     # BEGIN PROBLEM 2
-    "*** REPLACE THIS LINE ***"
+    # Isolate units digit from tens digit (assumes that 'opponent_score' is less than 100)
+    units_dig = opponent_score - ((opponent_score // 10) * 10)
+    tens_dig = opponent_score - units_dig
+
+    # Return largest digit in opponent's score, plus 1
+    return (max(units_dig, tens_dig) + 1)
+
     # END PROBLEM 2
 
 
