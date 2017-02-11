@@ -43,6 +43,9 @@ def roll_dice(num_rolls, dice=six_sided):
 def free_bacon(opponent_score):
     """Return the points scored from rolling 0 dice (Free Bacon)."""
     # BEGIN PROBLEM 2
+    # Handle scores less than 100
+    assert(opponent_score < 100)
+
     # Isolate units digit from tens digit (assumes that 'opponent_score' is less than 100)
     units_dig = opponent_score - ((opponent_score // 10) * 10)
     tens_dig = opponent_score - units_dig
