@@ -71,6 +71,13 @@ def is_prime(n):
             divisor += 1  # Test next divisor
     return True  # No divisors remaining; 'n' is prime
 
+# Given a number, prime or not, returns the next larger number that is prime
+def next_prime(n):
+    n += 1
+    while (!is_prime(n)):
+        n += 1
+    return n
+
 def take_turn(num_rolls, opponent_score, dice=six_sided):
     """Simulate a turn rolling NUM_ROLLS dice, which may be 0 (Free Bacon).
     Return the points scored for the turn by the current player. Also
