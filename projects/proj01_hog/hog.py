@@ -74,7 +74,7 @@ def is_prime(n):
 # Given a number, prime or not, returns the next larger number that is prime
 def next_prime(n):
     n += 1
-    while (!is_prime(n)):
+    while (not is_prime(n)):
         n += 1
     return n
 
