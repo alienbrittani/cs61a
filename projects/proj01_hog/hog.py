@@ -57,6 +57,30 @@ def free_bacon(opponent_score):
     return your_score
     # END PROBLEM 2
 # Write your prime functions here!
+# number is prime if it cannot be divided evenly aside from 1 and itself
+
+def is_prime(your_score):
+  # if there is any no remainder, then definitely not prime
+        #ie: 8/3 has remainder, but 8/4 doesn't, therefore NOT prime
+  # divide your_score by everything but 1 and itself, if it returns a remainder, it must e prime.  
+    if (your_score == 1):
+        return False
+    n = 2
+    while (n < your_score):
+       # if (5/2,5/3,5/4) 
+        if ((your_score % n) > 0 ): # remainder
+            n = n + 1
+        else:
+            return False
+    return True
+
+def next_prime(n):
+    n = n + 1
+
+    # Keep counting up, stop when prime
+    while not (is_prime(n)):
+        n = n + 1
+    return n 
 
 def take_turn(num_rolls, opponent_score, dice=six_sided):
     """Simulate a turn rolling NUM_ROLLS dice, which may be 0 (Free Bacon).
@@ -67,13 +91,37 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     opponent_score:  The total score of the opponent.
     dice:            A function of no args that returns an integer outcome.
     """
+    #hogtimus prime: if your score is prime number (3,5,7,11,etc), then your score is increased to next larger prime #
+    #when pigs fly: score is capped at 25. if it exceeds 25, your score is 25 - num_rolls
     # Leave these assert statements here; they help check for errors.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls >= 0, 'Cannot roll a negative number of dice in take_turn.'
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 2
-    "*** REPLACE THIS LINE ***"
+#when num rolls == 0
+    #score = free bacon rule
+    #else score = roll_dice
+#when score == prime
+    #score = next prime
+#when score > 25
+    #score = 25 - num_rolls
+    #else return score
+
+    score = 0
+    if (num_rolls == 0):
+        score = free_bacon(opponent_score)
+    else:
+         score = roll_dice(num_rolls, dice)
+    
+    if (is_prime(score)):
+        score = next_prime(score)
+    
+    if score > 25:
+       return 25 - num_rolls
+    else:
+        return score
+
     # END PROBLEM 2
 
 
