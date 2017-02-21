@@ -48,7 +48,7 @@ def free_bacon(opponent_score):
 
     # Isolate units digit from tens digit (assumes that 'opponent_score' is less than 100)
     units_dig = opponent_score - ((opponent_score // 10) * 10)
-    tens_dig = opponent_score - units_dig
+    tens_dig = (opponent_score - units_dig) // 10
 
     # Return largest digit in opponent's score, plus 1
     return (max(units_dig, tens_dig) + 1)
