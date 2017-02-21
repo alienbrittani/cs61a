@@ -58,6 +58,18 @@ def free_bacon(opponent_score):
 
 # Write your prime functions here!
 
+# Returns whether a number is prime
+def is_prime(n):
+    if (n == 1):
+        return False  # By definition, 1 is not prime
+
+    divisor = 2;  # Divisor to test, starting at 2
+    while (divisor <= (n // 2)):  # There are divisors remaining to test
+        if ((n % divisor) == 0):  # Remainder is zero; 'n' has a divisor
+            return False  # Not prime
+        else:  # Remainder is non-zero
+            divisor += 1  # Test next divisor
+    return True  # No divisors remaining; 'n' is prime
 
 def take_turn(num_rolls, opponent_score, dice=six_sided):
     """Simulate a turn rolling NUM_ROLLS dice, which may be 0 (Free Bacon).
