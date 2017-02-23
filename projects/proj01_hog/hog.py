@@ -112,13 +112,15 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     if (num_rolls == 0):
         score = free_bacon(opponent_score)
     else:
-         score = roll_dice(num_rolls, dice)
+        score = roll_dice(num_rolls, dice)
     
     if (is_prime(score)):
         score = next_prime(score)
-    
-    if score > 25:
-       return 25 - num_rolls
+
+    cap_score = 25 - num_rolls
+ 
+    if (score >= cap_score): 
+        return cap_score 
     else:
         return score
 
