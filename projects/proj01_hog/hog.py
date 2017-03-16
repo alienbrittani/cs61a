@@ -168,7 +168,78 @@ def play(strategy0, strategy1, score0=0, score1=0, goal=GOAL_SCORE):
     player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
     dice_swapped = False  # Whether 4-sided dice have been swapped for 6-sided
     # BEGIN PROBLEM 5
-    "*** REPLACE THIS LINE ***"
+    debug = False  # Whether to print verbose debugging messages and limit number of turns
+    debug_turn_cap = 5  # Limit on number of turns when debugging
+
+    dice = select_dice(score0, score1, dice_swapped)  # Initial dice
+
+    if (debug):
+        print("Initial scores: Player 0 ", score0, ", player 1 ", score1)
+        print("Goal: ", goal)
+        print("")
+
+    turn_count = 0
+    while (score0 < goal) and (score1 < goal):  # Game ends when one player's score reaches 'goal'
+        if (debug):
+            if (turn_count >= debug_turn_cap): break
+            print("Turn ", turn_count, ", player ", player, "'s turn.  Player 0 ", score0, ", player 1 ", score1)
+        assert(score0 >= 0)
+        assert(score1 >= 0)
+
+        # Determine who is "current player" and who is "opponent", and whose strategy to use in this turn
+        if (player == 0):  # Player 0's turn
+            cur_player_score = score0
+            opponent_score = score1
+            strategy = strategy0
+        else:  # Player 1's turn
+            cur_player_score = score1
+            opponent_score = score0
+            strategy = strategy1
+        if (debug):
+            print("Current player's score ", cur_player_score, ", opponent's score ", opponent_score)
+
+        # Execute current player's strategy to determine number of rolls
+        num_rolls = strategy(cur_player_score, opponent_score)
+        if (debug): print("Number of rolls: ", num_rolls)
+
+        # 'Pork Chop' rule
+        if (num_rolls == -1):  # Player chose to roll -1 dice
+            # Apply 'Pork Chop' rule
+            if (debug): print("Player ", player, " chose to roll -1 dice; 'Pork Chop' rule will apply.")
+            dice_swapped = not dice_swapped
+            turn_score = 1  # Score 1 point for turn
+        else:  # 'Pork Chop' rule does not apply
+            # Select dice, applying 'Hog Wild' rule
+            dice = select_dice(cur_player_score, opponent_score, dice_swapped)
+
+            # Take turn using selected dice
+            turn_score = take_turn(num_rolls, opponent_score, dice)
+
+        # Add turn score to player's score
+        if (debug): print("Turn score: ", turn_score)
+        cur_player_score += turn_score
+        if (debug): print("Current player's score is now: ", cur_player_score)
+
+        # Apply 'Swine Swap' rule
+        if (cur_player_score == (opponent_score * 2)) or (opponent_score == (cur_player_score * 2)):
+            if (debug): print("Applying 'Swine Swap' rule...")
+
+            # Swap scores of the two players
+            cur_player_score_temp = cur_player_score  # Temporary holder for current player's score
+            cur_player_score = opponent_score
+            opponent_score = cur_player_score_temp
+
+        # Update player scores
+        if (player == 0):  # Player 0's turn
+            score0 = cur_player_score
+            score1 = opponent_score
+        else:  # Player 1's turn
+            score1 = cur_player_score
+            score0 = opponent_score
+
+        # Turn complete
+        turn_count += 1  # Increment turn count for debugging purposes
+        player = other(player)  # Switch players
     # END PROBLEM 5
     return score0, score1
 
