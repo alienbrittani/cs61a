@@ -132,8 +132,9 @@ def select_dice(score, opponent_score, dice_swapped):
     DICE_SWAPPED is True if and only if four-sided dice are being used.
     """
     # BEGIN PROBLEM 4
-    "*** REPLACE THIS LINE ***"
-    dice = six_sided  # Replace this statement
+    dice = six_sided
+    if (dice_swapped):  # Pork Chop (player chose to roll -1 dice)
+        dice = four_sided  # Replace six-sided dice with four-sided dice
     # END PROBLEM 4
     if (score + opponent_score) % 7 == 0:
         dice = reroll(dice)
