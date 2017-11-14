@@ -317,7 +317,11 @@ def check_strategy(strategy, goal=GOAL_SCORE):
     AssertionError: strategy(102, 115) returned 100 (invalid number of rolls)
     """
     # BEGIN PROBLEM 6
-    "*** REPLACE THIS LINE ***"
+    for score0 in range(0, goal):
+        for score1 in range(0, goal):
+            num_rolls = strategy(score0, score1)
+            check_strategy_roll(score0, score1, num_rolls)
+    return None  # All possible valid inputs tested, with no invalid output detected
     # END PROBLEM 6
 
 
